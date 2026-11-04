@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediTrack | The Pharmacy OS</title>
+    
+    <!-- Premium Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --accent: #3b82f6; 
+            --accent-glow: rgba(59, 130, 246, 0.4);
+            --bg-dark: #09090b; 
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #ffffff;
+            color: var(--text-main);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* --- LEFT PANEL: Minimalist Dark --- */
+        .brand-panel {
+            background-color: var(--bg-dark);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .brand-panel::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+        }
+
+        .glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: 0;
+        }
+        .glow-1 {
+            width: 600px; height: 600px;
+            background: rgba(59, 130, 246, 0.15);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .brand-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .brand-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-bottom: 3rem;
+        }
+
+        .brand-logo i {
+            font-size: 2rem;
+            color: #60a5fa;
+        }
+
+        .brand-heading {
+            color: white;
+            font-size: 5rem;
+            font-weight: 600;
+            line-height: 1;
+            letter-spacing: -2px;
+            margin-bottom: 1rem;
+        }
+
+        .brand-heading span {
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- RIGHT PANEL: Clean Form --- */
+        .form-panel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #ffffff;
+            padding: 2rem;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .mobile-logo {
+            display: none;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--bg-dark);
+        }
+
+        .form-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .form-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--bg-dark);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .form-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Custom Input Styling */
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .custom-input {
+            width: 100%;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 0.9rem 1rem 0.9rem 3rem;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            transition: all 0.2s ease;
+        }
+
+        .custom-input:focus {
+            outline: none;
+            background-color: #ffffff;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-glow);
+        }
+
+        .input-icon-left {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 1.1rem;
+            transition: color 0.2s ease;
+        }
+
+        .custom-input:focus + .input-icon-left {
+            color: var(--accent);
+        }
+
+        /* Password Toggle Icon */
+        .toggle-password {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            z-index: 10;
+        }
+
+        .toggle-password:hover {
+            color: var(--bg-dark);
+        }
+
+        /* Forgot Password Link */
+        .forgot-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        .forgot-link:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        /* Premium Button */
+        .btn-premium {
+            background: var(--bg-dark);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 1rem;
+            font-weight: 500;
+            font-size: 1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-premium:hover:not(:disabled) {
+            background: #1e293b;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            color: white;
+        }
+
+        .btn-premium:disabled {
+            background: #cbd5e1;
+            box-shadow: none;
+            transform: none;
+            cursor: not-allowed;
+        }
+
+        /* Alert styling */
+        .alert-custom {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 991.98px) {
+            .mobile-logo {
+                display: block;
+            }
+            .form-panel {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid p-0">
+    <div class="row g-0">
+        
+        <!-- Left Branding Panel (Hidden on Mobile) -->
+        <div class="col-lg-6 d-none d-lg-flex brand-panel">
+            <div class="glow glow-1"></div>
+            
+            <div class="brand-content">
+                <div class="brand-logo">
+                    <i class="bi bi-capsule"></i> MediTrack
+                </div>
+                
+                <h1 class="brand-heading">
+                    Pharmacy.<br><span>Perfected.</span>
+                </h1>
+            </div>
+        </div>
+
+        <!-- Right Login Panel -->
+        <div class="col-lg-6 form-panel">
+            <div class="login-container">
+                
+                <!-- Mobile Logo Header -->
+                <div class="mobile-logo">
+                    <i class="bi bi-capsule text-primary me-2"></i> MediTrack
+                </div>
+
+                <div class="form-header">
+                    <h2>Sign In</h2>
+                    <p>Enter your credentials to access your workspace.</p>
+                </div>
+
+                <div id="errorAlert" class="alert-custom d-none">
+                    <i class="bi bi-exclamation-circle-fill"></i> <span id="errorText"></span>
+                </div>
+
+                <form id="loginForm" novalidate>
+                    <div>
+                        <label for="email" class="form-label">Email Address</label>
+                        <div class="input-wrapper">
+                            <input type="email" class="custom-input" id="email" placeholder="admin@meditrack.com" required>
+                            <i class="bi bi-envelope input-icon-left"></i>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <label for="password" class="form-label mb-0">Password</label>
+                            <a href="#" class="forgot-link">Forgot password?</a>
+                        </div>
+                        <div class="input-wrapper">
+                            <input type="password" class="custom-input" id="password" placeholder="••••••••" required>
+                            <i class="bi bi-lock input-icon-left"></i>
+                            <!-- Password Visibility Toggle -->
+                            <i class="bi bi-eye-slash toggle-password" id="togglePassword"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-premium mt-3" id="loginBtn">
+                        <span id="btnText">Sign In</span>
+                        <span class="spinner-border spinner-border-sm ms-2 d-none" id="btnSpinner" role="status" aria-hidden="true"></span>
+                    </button>
+                </form>
+                
+                <div class="auth-footer mt-5 text-center">
+                    <small class="text-muted" style="font-weight: 500;">
+                        <i class="bi bi-shield-check me-1"></i> Secured by MediTrack Systems
+                    </small>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // 1. Password Visibility Toggle
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+
+    togglePassword.addEventListener('click', function () {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        // Toggle the eye icon
+        this.classList.toggle('bi-eye');
+        this.classList.toggle('bi-eye-slash');
+    });
+
+    // 2. Form Submission and Validation
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault(); 
+        
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+        
+        const errorAlert = document.getElementById('errorAlert');
+        const errorText = document.getElementById('errorText');
+        const btnText = document.getElementById('btnText');
+        const btnSpinner = document.getElementById('btnSpinner');
+        const loginBtn = document.getElementById('loginBtn');
+
+        // Reset UI
+        errorAlert.classList.add('d-none');
+        errorAlert.classList.remove('shake');
+
+        // Custom Validation
+        if (!email || !password) {
+            errorText.textContent = "Please fill in all fields.";
+            errorAlert.classList.remove('d-none');
+            return;
+        }
+
+        if (!email.includes('@')) {
+            errorText.textContent = "Please enter a valid email address.";
+            errorAlert.classList.remove('d-none');
+            return;
+        }
+        
+        // Show loading state
+        btnText.textContent = "Signing in...";
+        btnSpinner.classList.remove('d-none');
+        loginBtn.disabled = true;
+
+        try {
+            const response = await fetch('http://127.0.0.1:5000/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // Success - Save token and redirect
+                localStorage.setItem('token', data.access_token);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                
+                btnText.textContent = "Success!";
+                btnSpinner.classList.add('d-none');
+                btnSpinner.classList.remove('spinner-border');
+                btnSpinner.classList.add('bi', 'bi-check-circle-fill', 'me-2');
+
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 600);
+            } else {
+                // API Error (e.g., wrong password)
+                errorText.textContent = data.error || "Invalid email or password.";
+                errorAlert.classList.remove('d-none');
+                resetButton();
+            }
+        } catch (error) {
+            // Network Error
+            errorText.textContent = "Network error. Ensure the backend server is running.";
+            errorAlert.classList.remove('d-none');
+            resetButton();
+        }
+    });
+
+    function resetButton() {
+        const btnText = document.getElementById('btnText');
+        const btnSpinner = document.getElementById('btnSpinner');
+        const loginBtn = document.getElementById('loginBtn');
+        
+        btnText.textContent = "Sign In";
+        btnSpinner.classList.add('d-none');
+        loginBtn.disabled = false;
+    }
+</script>
+
+</body>
+</html>
